@@ -1,21 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
-fetch("http://localhost:9292/test")
-  .then((res) => res.json())
-  .then(console.log); 
+import App from "./app";
 
 
-function Square(props) {
+
+  function Square(props) {
 	return (
-	  <button className="square" onClick={props.onClick}>
+	  <button class="square" onClick={props.onClick}>
 		{props.value}
 	  </button>
 	);
   }
   
-  class Board extends React.Component {	
+  class Board extends React.Component {
 	renderSquare(i) {
 	  return (
 		<Square
@@ -61,16 +59,16 @@ function Square(props) {
 		xIsNext: true
 	  };
 	}
-  
-	handleClick(i) {
+	
+	makeMove(i) {
 	  const history = this.state.history.slice(0, this.state.stepNumber + 1);
 	  const current = history[history.length - 1];
 	  const squares = current.squares.slice();
 	  if (calculateWinner(squares) || squares[i]) {
-		return;
+		return Promise.resolve();
 	  }
 	  squares[i] = this.state.xIsNext ? "X" : "O";
-	  this.setState({
+	  const nextState = {
 		history: history.concat([
 		  {
 			squares: squares
@@ -78,7 +76,24 @@ function Square(props) {
 		]),
 		stepNumber: history.length,
 		xIsNext: !this.state.xIsNext
+	  };
+	  
+	  // Return a Promise that resolves when setState completes.
+	  return new Promise((resolve, reject) => {
+		this.setState(nextState, resolve);
 	  });
+	}
+  
+	async handleClick(i) {
+	  // Apply player move to square i
+	  await this.makeMove(i);
+	  
+	  // Apply AI move
+	  const squares = this.state.history[this.state.stepNumber].squares.slice();
+	  const bestSquare = findBestSquare(squares, this.state.xIsNext ? "X" : "O");
+	  if (bestSquare !== -1) {
+		await this.makeMove(bestSquare); 
+	  }
 	}
   
 	jumpTo(step) {
@@ -107,12 +122,18 @@ function Square(props) {
 	  let status;
 	  if (winner) {
 		status = "Winner: " + winner;
+	  }
+	  else if (isBoardFilled(current.squares)) {
+		status = "It's a Tie!";
 	  } else {
 		status = "Next player: " + (this.state.xIsNext ? "X" : "O");
 	  }
   
 	  return (
 		<div className="game">
+			<div className="App">
+				<App/>
+			</div>
 		  <div className="game-board">
 			<Board
 			  squares={current.squares}
@@ -128,6 +149,10 @@ function Square(props) {
 	}
   }
   
+
+  
+
+
   // ========================================
   
   ReactDOM.render(<Game />, document.getElementById("root"));
@@ -152,3 +177,71 @@ function Square(props) {
 	return null;
   }
   
+  function isBoardFilled(squares) {
+	for (let i = 0; i < squares.length; i++) {
+	  if (squares[i] === null) {
+		return false;
+	  }
+	}
+	return true;
+  }
+  
+  function findBestSquare(squares, player) {
+	// 'player' is the maximizing player
+	// 'opponent' is the minimizing player
+	const opponent = player === 'X' ? 'O' : 'X';
+	
+	const minimax = (squares, isMax) => {
+	  const winner = calculateWinner(squares);
+	  
+	  // If player wins, score is +1
+	  if (winner === player) return { square: -1, score: 1 };
+	  
+	  // If opponent wins, score is -1
+	  if (winner === opponent) return { square: -1, score: -1 };
+	  
+	  // If Tie, score is 0
+	  if (isBoardFilled(squares)) return { square: -1, score: 0 };
+	  
+	  // Initialize 'best'. If isMax, we want to maximize score, and minimize otherwise.
+	  const best = { square: -1, score: isMax ? -1000 : 1000 };
+	  
+	  // Loop through every square on the board
+	  for (let i = 0; i < squares.length; i++) {
+		// If square is already filled, it's not a valid move so skip it
+		if (squares[i]) {
+		  continue;
+		}
+		
+		// If square is unfilled, then it's a valid move. Play the square.
+		squares[i] = isMax ? player : opponent;
+		// Simulate the game until the end game and get the score,
+		// by recursively calling minimax.
+		const score = minimax(squares, !isMax).score;
+		// Undo the move
+		squares[i] = null;
+  
+		if (isMax) {
+		  // Maximizing player; track the largest score and move.
+		  if (score > best.score) {
+			best.score = score;
+			best.square = i;
+		  }
+		} else {
+		  // Minimizing opponent; track the smallest score and move.
+		  if (score < best.score) {
+			best.score = score;
+			best.square = i;
+		  }
+		}
+	  }
+	  
+	  // The move that leads to the best score at end game.
+	  return best;
+	};
+	
+	// The best move for the 'player' given current board
+	return minimax(squares, true).square;
+  }
+
+
