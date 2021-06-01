@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import App from "./app";
 
-fetch("http://localhost:9292/test")
-  .then((res) => res.json())
-  .then(console.log); 
+
 
   function Square(props) {
 	return (
@@ -132,6 +131,9 @@ fetch("http://localhost:9292/test")
   
 	  return (
 		<div className="game">
+			<div className="App">
+				<App/>
+			</div>
 		  <div className="game-board">
 			<Board
 			  squares={current.squares}
@@ -147,6 +149,10 @@ fetch("http://localhost:9292/test")
 	}
   }
   
+
+  
+
+
   // ========================================
   
   ReactDOM.render(<Game />, document.getElementById("root"));
@@ -237,5 +243,5 @@ fetch("http://localhost:9292/test")
 	// The best move for the 'player' given current board
 	return minimax(squares, true).square;
   }
-  
+
 
