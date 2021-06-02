@@ -1,12 +1,8 @@
 import React from 'react'
 
 
-
 class UserSelection extends React.Component {
-    constructor(){
-        super();
-    }
-
+    
     state = {
         player: ""
     }
