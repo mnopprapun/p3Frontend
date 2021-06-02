@@ -21,7 +21,7 @@ class UserSelection extends React.Component {
 
 
     render() {
-        let players = this.props.users
+        let players = this.props
         let optionItems = players.users.map((user) =>
             <option key={user.name}>{user.name}</option>);
 
