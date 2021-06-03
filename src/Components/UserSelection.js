@@ -26,17 +26,6 @@ class UserSelection extends React.Component {
         })
     }
     
-    // secondSetUser = ({target:{value}})=>{
-    //     this.setState({
-    //         playing: {type:value}
-    //         playing: ({type:value})
-    //     })
-    // }
-
-    // trying to get the name picked int the slector to match the playing state that we created so we can refrence it later when setting new player scores
-
-
-
     render() {
         let players = this.props
         let optionItems = players.users.map((user) =>
