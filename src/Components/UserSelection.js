@@ -20,6 +20,7 @@ class UserSelection extends React.Component {
     }
 
     setUser = event => {
+        event.preventDefault()
         this.setState({
             playing: event.target.value
         })
@@ -39,7 +40,7 @@ class UserSelection extends React.Component {
     render() {
         let players = this.props
         let optionItems = players.users.map((user) =>
-            <option key={user.name}>{user.name}</option>);
+            <option value={user.name} key={user.name}>{user.name}</option>);
 
         return (  
 
@@ -53,10 +54,11 @@ class UserSelection extends React.Component {
                 </div>  
                  <div className="user_div">
                     <h3>SELECT USER</h3>
-                    <select>
+                    
+                    <select onChange ={this.setUser} name='selector'>
                         {optionItems}
                     </select>
-                    <button className="selectUser" value={optionItems} onClick={this.setUser}>Select User</button>
+                    
                 </div>           
             </div>
           
