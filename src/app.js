@@ -35,6 +35,11 @@ class App extends React.Component {
 		})
 	}
 
+  setUser = event => {
+    this.setState({
+        player: event.target.optionItems
+    })
+}
 
   addPlayer = (newPlayer) => {
     // console.log(this.state.users)
@@ -59,7 +64,7 @@ class App extends React.Component {
       <div className="User_Selection">
         <UserSelection users={this.state.users} addPlayer={this.addPlayer} />
         <div>
-					<Results results={this.state.results}/>
+					<Results results={this.state.results} users={this.state.users} setUser={this.setUser}/>
 				</div>
       </div>
     )

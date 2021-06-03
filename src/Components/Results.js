@@ -1,19 +1,20 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
+
 
 
 class Results extends React.Component {
+	
+	renderTableData(){
 
-renderTableData(){
 	return this.props.results.map((record, index)=> {
-		const {game_id, id, result, user_id} = record
-		return (
+		const {game_id, id, result, user_name} = record
+			return (
 			<tr key={game_id}>
 				{/* <td>{id}</td> */}
-				<td>{user_id}</td>
+				<td>{user_name}</td>
 				<td>{result}</td>
 			</tr>
-		)
+			 )
 	})
 }
 

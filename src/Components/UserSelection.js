@@ -18,6 +18,8 @@ class UserSelection extends React.Component {
         })
     }
 
+
+
     render() {
         let players = this.props
         let optionItems = players.users.map((user) =>
@@ -39,14 +41,8 @@ class UserSelection extends React.Component {
                     <select>
                         {optionItems}
                     </select>
-                </div>
-
-                <div className="new_player_form">
-                    <form onSubmit={this.onSubmit}>
-                        <input type="text" name="name" placeholder="Enter New Player..." className="imput_text" onChange={this.onNewPlayer} value={this.state.player} />
-                        <input type="submit" name="submit" value="Add New Player" className="submit" />
-                    </form>
-                </div>
+                    <button className="selectUser" value={optionItems} onSubmit={this.setUser}>Select User</button>
+                </div>           
             </div>
           
         );
