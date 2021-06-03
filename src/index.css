@@ -48,4 +48,27 @@ body {
   .game-info {
 	margin-left: 20px;
   }
-  
+div.card {
+	border-width: .5mm;
+	border-style: dashed;
+	border-radius: 25px;
+  background: #ffffff;
+  padding: 20px;
+  width: 200px;
+  height: 200px;
+align-self: auto;
+}
+
+div.new_player_form{
+	position: relative;
+	
+}
+/* input.submit{
+	background-color: rgb(25, 0, 255);
+  font-size: 16px;
+  color: white;
+} */
+
+Board {
+	
+}
