@@ -23,7 +23,7 @@ class Results extends React.Component {
         return (
             <div className='card'>
                 <card class="card-body">
-                    <h5 class="card-title">Player (player) Record</h5>
+                    <h5 class="card-title">Player Record</h5>
 					<table>
 					  {this.renderTableData()}
 					  </table>
