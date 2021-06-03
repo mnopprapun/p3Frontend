@@ -15,9 +15,9 @@ class App extends React.Component {
       .then(res => res.json())
       .then(userData => this.usersData(userData.users))
 
-      	fetch('http://localhost:9292/Results')
-      		.then(res => res.json())
-      		.then(resultsArray => this.resultsData(resultsArray.results))
+    fetch('http://localhost:9292/Results')
+      .then(res => res.json())
+      .then(resultsArray => this.resultsData(resultsArray.results))
 
 
   }
@@ -29,11 +29,11 @@ class App extends React.Component {
   }
 
 
-	resultsData = (resultsData) => {
-		this.setState({
-			results: resultsData
-		})
-	}
+  resultsData = (resultsData) => {
+    this.setState({
+      results: resultsData
+    })
+  }
 
 
   addPlayer = (newPlayer) => {
@@ -52,15 +52,15 @@ class App extends React.Component {
       .then(addedPlayer => this.setState({ users: [...this.state.users, addedPlayer] }))
   }
 
-  
+
 
   render() {
     return (
       <div className="User_Selection">
         <UserSelection users={this.state.users} addPlayer={this.addPlayer} />
-        <div>
-					<Results results={this.state.results} users={this.state.users}/>
-				</div>
+        <div className="results">
+          <Results results={this.state.results} users={this.state.users} />
+        </div>
       </div>
     )
   }

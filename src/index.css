@@ -1,4 +1,5 @@
 body {
+	background-image: url(https://cutewallpaper.org/21/chillstep-backgrounds/I-Was-Listening-To-A-Chill-Step-Mix-That-Has-The-Same-.jpg);
 	font: 14px "Century Gothic", Futura, sans-serif;
 	margin: 20px;
   }
@@ -18,7 +19,7 @@ body {
   }
   
   .square {
-	background: #fff;
+	background: rgb(255, 255, 255);
 	border: 1px solid #999;
 	float: left;
 	font-size: 24px;
@@ -42,17 +43,21 @@ body {
   
   .game {
 	display: flex;
+		/* justify-content: center; */
+		align-items: center;
 	flex-direction: row;
   }
   
   .game-info {
-	margin-left: 20px;
+	position: relative;
+	left: -250px;
+	top: 175px;
   }
 div.card {
 	border-width: .5mm;
 	border-style: dashed;
 	border-radius: 25px;
-  background: #ffffff;
+  background: #4576fc;
   padding: 20px;
   width: 200px;
   height: 200px;
@@ -63,9 +68,36 @@ div.new_player_form{
 	position: relative;
 	
 }
-/* input.submit{
-	background-color: rgb(25, 0, 255);
+
+input.submit{
+	background-color: #4576fc;
   font-size: 16px;
   color: white;
-} */
+}
 
+.results{
+	position: absolute;
+	left: 425px;
+	top: 150px;
+}
+
+
+.whole-board{
+	position:absolute;
+	left: 250px;
+	top: 200px;
+}
+
+.user_div{
+	position: absolute;
+	left: 500px;
+	top: 50px;
+	display: block;
+	text-align: center;
+}
+
+.new_player_form{
+	position: relative;
+	left: 50px;
+	top: 60px;
+}

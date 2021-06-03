@@ -13,7 +13,7 @@ class UserSelection extends React.Component {
         this.props.addPlayer(this.state)
     }
 
-    onNewPlayer = e=> {
+    onNewPlayer = e => {
         this.setState({
             player: e.target.value
         })
@@ -25,32 +25,33 @@ class UserSelection extends React.Component {
             playing: event.target.value
         })
     }
-    
+
     render() {
         let players = this.props
         let optionItems = players.users.map((user) =>
             <option value={user.name} key={user.name}>{user.name}</option>);
 
-        return (  
+        return (
 
-            
-             <div>
-             <div className="new_player_form">
+
+            <div>
+                <div className="new_player_form">
                     <form onSubmit={this.onSubmit}>
                         <input type="text" name="name" placeholder="Enter New Player..." className="imput_text" onChange={this.onNewPlayer} value={this.state.player} />
                         <input type="submit" name="submit" value="Add New Player" className="submit" />
                     </form>
-                </div>  
-                 <div className="user_div">
+                </div>
+                <div className="user_div">
                     <h3>SELECT USER</h3>
-                    
-                    <select onChange ={this.setUser} name='selector'>
+
+                    <select onChange={this.setUser} name='selector'>
+                    <option></option>
                         {optionItems}
                     </select>
-                    
-                </div>           
+
+                </div>
             </div>
-          
+
         );
     }
 }
