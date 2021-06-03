@@ -1,7 +1,6 @@
 import React from 'react'
 
 
-
 class UserSelection extends React.Component {
 
     state = {
@@ -40,6 +39,13 @@ class UserSelection extends React.Component {
                     <select>
                         {optionItems}
                     </select>
+                </div>
+
+                <div className="new_player_form">
+                    <form onSubmit={this.onSubmit}>
+                        <input type="text" name="name" placeholder="Enter New Player..." className="imput_text" onChange={this.onNewPlayer} value={this.state.player} />
+                        <input type="submit" name="submit" value="Add New Player" className="submit" />
+                    </form>
                 </div>
             </div>
           
